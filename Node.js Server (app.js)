@@ -1,0 +1,38 @@
+// app.js
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+const app = express();
+
+// Database connection
+mongoose.connect('mongodb://localhost:27017/interview_db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
+mongoose.connection.on('error', (err) => {
+  console.error('Error connecting to MongoDB:', err.message);
+});
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/authRoutes'));
+app.use('/students', require('./routes/studentRoutes'));
+app.use('/interviews', require('./routes/interviewRoutes'));
+app.use('/results', require('./routes/resultRoutes'));
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});

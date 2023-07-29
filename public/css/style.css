@@ -1,0 +1,25 @@
+/* public/css/style.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #007bff;
+}
